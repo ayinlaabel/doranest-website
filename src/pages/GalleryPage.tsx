@@ -1,0 +1,225 @@
+import { useState } from 'react';
+import type { CSSProperties } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import creativePlayImage from '../assets/images/gallery-creative-play.png';
+import infantCrecheImage from '../assets/images/gallery-infant-creche.png';
+import outdoorPlaygroundImage from '../assets/images/gallery-outdoor-playground.png';
+import nutritionDiningImage from '../assets/images/gallery-nutrition-dining.png';
+import readingCornerImage from '../assets/images/gallery-reading-corner.png';
+import artExpressionImage from '../assets/images/gallery-art-expression.png';
+
+const categories = ['All', 'Play Areas', 'Learning Spaces', 'Dining & Rest', 'Outdoor'] as const;
+
+type Category = (typeof categories)[number];
+
+interface GalleryItem {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  category: Exclude<Category, 'All'>;
+}
+
+const galleryItems: GalleryItem[] = [
+  {
+    title: 'Creative Play Space',
+    description: 'Sunlit rooms designed for imagination.',
+    image: creativePlayImage,
+    imageAlt: "Toddlers building with wooden blocks in a sunlit Dora's Nest playroom",
+    category: 'Play Areas',
+  },
+  {
+    title: 'Infant Crèche',
+    description: 'A soft, secure haven for the littlest ones.',
+    image: infantCrecheImage,
+    imageAlt: "Cots, soft mats and toys in the Dora's Nest infant crèche",
+    category: 'Play Areas',
+  },
+  {
+    title: 'Outdoor Playground',
+    description: 'Safe, vibrant spaces for active exploration.',
+    image: outdoorPlaygroundImage,
+    imageAlt: "Children playing on the colourful slide and climbing frame at Dora's Nest",
+    category: 'Outdoor',
+  },
+  {
+    title: 'Nutrition & Dining',
+    description: 'Clean, organized spaces for healthy meals.',
+    image: nutritionDiningImage,
+    imageAlt: 'Child-sized dining tables and chairs in the bright Dora\u2019s Nest dining room',
+    category: 'Dining & Rest',
+  },
+  {
+    title: 'Reading Corner',
+    description: 'Fostering early literacy in comfort.',
+    image: readingCornerImage,
+    imageAlt: 'Bookshelves, bean bags and soft rugs in the Dora\u2019s Nest reading corner',
+    category: 'Learning Spaces',
+  },
+  {
+    title: 'Art & Expression',
+    description: 'Where creativity knows no bounds.',
+    image: artExpressionImage,
+    imageAlt: "Children painting and making crafts at Dora's Nest art tables",
+    category: 'Learning Spaces',
+  },
+];
+
+function PinHomeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 21.4c4.7-4.5 7.2-8 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 3.4 2.5 6.9 7.2 11.4Z" />
+      <path d="M9.2 11 12 8.6 14.8 11" />
+      <path d="M10.2 13.3v2.4h3.6v-2.4" />
+    </svg>
+  );
+}
+
+export function GalleryPage() {
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
+
+  // Re-scan whenever the filter changes so newly rendered tiles animate in.
+  useScrollReveal(activeCategory);
+
+  const visibleItems =
+    activeCategory === 'All'
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === activeCategory);
+
+  return (
+    <div className="bg-[#FBF9F4]">
+      {/* Gallery */}
+      <section className="pb-[40px] pt-[56px] sm:pt-[68px] lg:pt-[92px]">
+        <div className="mx-auto max-w-[1284px] px-6 md:px-10 lg:px-[66px]">
+          <h1
+            data-reveal="up"
+            className="text-center font-brand text-[34px] font-bold leading-[1.15] tracking-[-0.4px] text-brand sm:text-[42px] lg:text-[46px]"
+          >
+            A Glimpse into Our Nest
+          </h1>
+          <p
+            data-reveal="up"
+            className="mx-auto mt-[18px] max-w-[660px] text-center font-brand text-[16px] leading-[26px] text-ink [--reveal-delay:90ms] sm:mt-[26px] sm:text-[18px] sm:leading-[30px]"
+          >
+            Explore the safe, vibrant, and nurturing spaces where your child&apos;s journey begins.
+          </p>
+
+          {/* Category filters */}
+          <div
+            data-reveal="up"
+            className="mt-[36px] flex flex-wrap items-center justify-center gap-[10px] [--reveal-delay:170ms] sm:gap-[14px] lg:mt-[66px]"
+            role="group"
+            aria-label="Filter gallery by space"
+          >
+            {categories.map((category) => {
+              const isActive = activeCategory === category;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setActiveCategory(category)}
+                  aria-pressed={isActive}
+                  className={`inline-flex h-[42px] items-center justify-center rounded-full border px-[22px] font-brand text-[14px] leading-none transition-all duration-300 hover:-translate-y-0.5 sm:h-[46px] sm:px-[25px] ${
+                    isActive
+                      ? 'border-[#2B2C28] bg-white text-ink'
+                      : 'border-[#D9D3C8] bg-transparent text-ink hover:border-brand hover:text-brand'
+                  }`}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tiles */}
+          <div
+            key={activeCategory}
+            className="mt-[32px] grid gap-[22px] sm:grid-cols-2 lg:mt-[38px] lg:grid-cols-3"
+          >
+            {visibleItems.map((item, index) => (
+              <article
+                key={item.title}
+                data-reveal="up"
+                style={{ '--reveal-delay': `${(index % 3) * 90}ms` } as CSSProperties}
+                className="card-lift group flex min-w-0 flex-col overflow-hidden rounded-[10px] bg-white shadow-[0_18px_40px_-36px_rgba(63,72,75,0.4)] hover:shadow-[0_28px_50px_-34px_rgba(63,72,75,0.35)]"
+              >
+                <div className="overflow-hidden">
+                  <img
+                    src={item.image}
+                    width={368}
+                    height={210}
+                    alt={item.imageAlt}
+                    loading="lazy"
+                    className="aspect-[368/210] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  />
+                </div>
+                <div className="px-[20px] pb-[18px] pt-[16px] text-center">
+                  <h2 className="font-brand text-[17px] font-semibold leading-[24px] text-brand">
+                    {item.title}
+                  </h2>
+                  <p className="mt-[4px] font-brand text-[14.5px] leading-[22px] text-ink">
+                    {item.description}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visit CTA */}
+      <section className="bg-[#E2DCE4]">
+        <div className="mx-auto max-w-[1284px] px-6 py-[60px] md:px-10 lg:pt-[64px] lg:pb-[50px]">
+          <div className="flex flex-col items-center text-center">
+            <span data-reveal="scale" className="flex text-brand">
+              <PinHomeIcon className="h-[32px] w-[32px]" />
+            </span>
+
+            <h2
+              data-reveal="up"
+              className="mt-[24px] font-brand text-[30px] font-bold leading-[1.2] tracking-[-0.3px] text-brand [--reveal-delay:90ms] sm:text-[34px] lg:mt-[34px] lg:text-[36px]"
+            >
+              See it in Person
+            </h2>
+
+            <p
+              data-reveal="up"
+              className="mt-[16px] max-w-[760px] font-brand text-[16px] leading-[27px] text-ink [--reveal-delay:170ms] sm:text-[17px] sm:leading-[30px]"
+            >
+              Pictures only tell half the story. We invite you to experience the warmth and safety of
+              Dora&apos;s Nest firsthand.
+            </p>
+
+            <div
+              data-reveal="up"
+              className="mt-[30px] flex flex-wrap items-center justify-center gap-[16px] [--reveal-delay:250ms] sm:mt-[38px] lg:mt-[52px]"
+            >
+              <a
+                href="/tour"
+                className="inline-flex h-[50px] items-center justify-center rounded-full bg-brand px-[30px] font-brand text-[14px] font-semibold leading-none text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#574374] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                Book a Tour Today
+              </a>
+              <a
+                href="/enroll"
+                className="inline-flex h-[50px] items-center justify-center rounded-full bg-cta px-[38px] font-brand text-[14px] font-semibold leading-none text-cta-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F8C43C] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                Enroll Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
