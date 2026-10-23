@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import type { CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import creativePlayImage from '../assets/images/gallery-creative-play.png';
-import infantCrecheImage from '../assets/images/gallery-infant-creche.png';
-import outdoorPlaygroundImage from '../assets/images/gallery-outdoor-playground.png';
-import nutritionDiningImage from '../assets/images/gallery-nutrition-dining.png';
-import readingCornerImage from '../assets/images/gallery-reading-corner.png';
-import artExpressionImage from '../assets/images/gallery-art-expression.png';
+import outdoorCourtyardImage from '../assets/images/gallery-outdoor-courtyard.png';
+import earlyLiteracyImage from '../assets/images/gallery-early-literacy.png';
+import dedicatedInfantCareImage from '../assets/images/gallery-dedicated-infant-care.png';
+import hygienicCrecheImage from '../assets/images/gallery-hygienic-creche.png';
+import natureGardeningImage from '../assets/images/gallery-nature-gardening.png';
+import developmentalActivitiesImage from '../assets/images/gallery-developmental-activities.png';
 
 const categories = ['All', 'Play Areas', 'Learning Spaces', 'Dining & Rest', 'Outdoor'] as const;
 
@@ -22,46 +23,47 @@ interface GalleryItem {
 
 const galleryItems: GalleryItem[] = [
   {
-    title: 'Creative Play Space',
-    description: 'Sunlit rooms designed for imagination.',
-    image: creativePlayImage,
-    imageAlt: "Toddlers building with wooden blocks in a sunlit Dora's Nest playroom",
-    category: 'Play Areas',
-  },
-  {
-    title: 'Infant Crèche',
-    description: 'A soft, secure haven for the littlest ones.',
-    image: infantCrecheImage,
-    imageAlt: "Cots, soft mats and toys in the Dora's Nest infant crèche",
-    category: 'Play Areas',
-  },
-  {
-    title: 'Outdoor Playground',
-    description: 'Safe, vibrant spaces for active exploration.',
-    image: outdoorPlaygroundImage,
-    imageAlt: "Children playing on the colourful slide and climbing frame at Dora's Nest",
+    title: 'Outdoor Play & Courtyard',
+    description: 'Safe outdoor play spaces where children play, learn, and grow together.',
+    image: outdoorCourtyardImage,
+    imageAlt:
+      "Swing set, tricycle and play tunnel in the Dora's Nest outdoor courtyard with the words 'We play, learn and grow together'",
     category: 'Outdoor',
   },
   {
-    title: 'Nutrition & Dining',
-    description: 'Clean, organized spaces for healthy meals.',
-    image: nutritionDiningImage,
-    imageAlt: 'Child-sized dining tables and chairs in the bright Dora\u2019s Nest dining room',
+    title: 'Early Literacy Corner',
+    description: 'Sensory and touch-and-feel book collection fostering early speech and curiosity.',
+    image: earlyLiteracyImage,
+    imageAlt: "A colourful collection of early literacy board books at Dora's Nest",
+    category: 'Learning Spaces',
+  },
+  {
+    title: 'Dedicated Infant Care',
+    description: 'Individualized cribs ensuring secure, restful nap routines in a calm environment.',
+    image: dedicatedInfantCareImage,
+    imageAlt: 'A wooden infant crib with fresh bedding in the Dora\u2019s Nest rest suite',
     category: 'Dining & Rest',
   },
   {
-    title: 'Reading Corner',
-    description: 'Fostering early literacy in comfort.',
-    image: readingCornerImage,
-    imageAlt: 'Bookshelves, bean bags and soft rugs in the Dora\u2019s Nest reading corner',
-    category: 'Learning Spaces',
+    title: 'Hygienic Infant Crèche',
+    description: 'Clean, temperature-regulated sleep suites with dedicated natural wood cribs.',
+    image: hygienicCrecheImage,
+    imageAlt: 'Natural wood cribs in the bright, hygienic Dora\u2019s Nest infant crèche',
+    category: 'Dining & Rest',
   },
   {
-    title: 'Art & Expression',
-    description: 'Where creativity knows no bounds.',
-    image: artExpressionImage,
-    imageAlt: "Children painting and making crafts at Dora's Nest art tables",
-    category: 'Learning Spaces',
+    title: 'Nature & Sensory Gardening',
+    description: 'Hands-on discovery and gentle outdoor learning in our sunny green spaces.',
+    image: natureGardeningImage,
+    imageAlt: "A toddler watering plants in Dora's Nest sensory garden",
+    category: 'Outdoor',
+  },
+  {
+    title: 'Developmental Activities',
+    description: 'Arts & crafts, motor skills development, and joyful active group play.',
+    image: developmentalActivitiesImage,
+    imageAlt: "Children taking part in art, music and movement activities at Dora's Nest",
+    category: 'Play Areas',
   },
 ];
 
@@ -157,10 +159,10 @@ export function GalleryPage() {
                   <img
                     src={item.image}
                     width={368}
-                    height={210}
+                    height={276}
                     alt={item.imageAlt}
                     loading="lazy"
-                    className="aspect-[368/210] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    className="aspect-[368/276] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                 </div>
                 <div className="px-[20px] pb-[18px] pt-[16px] text-center">
@@ -204,18 +206,18 @@ export function GalleryPage() {
               data-reveal="up"
               className="mt-[30px] flex flex-wrap items-center justify-center gap-[16px] [--reveal-delay:250ms] sm:mt-[38px] lg:mt-[52px]"
             >
-              <a
-                href="/tour"
+              <Link
+                to="/tour"
                 className="inline-flex h-[50px] items-center justify-center rounded-full bg-brand px-[30px] font-brand text-[14px] font-semibold leading-none text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#574374] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Book a Tour Today
-              </a>
-              <a
-                href="/enroll"
+              </Link>
+              <Link
+                to="/admissions#enroll"
                 className="inline-flex h-[50px] items-center justify-center rounded-full bg-cta px-[38px] font-brand text-[14px] font-semibold leading-none text-cta-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F8C43C] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Enroll Now
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,45 +1,27 @@
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Programs } from './components/Programs';
-import { VisionMission } from './components/VisionMission';
-import { Footer } from './components/Footer';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { SiteLayout } from './layouts/SiteLayout';
+import { HomePage } from './pages/HomePage';
 import { ProgramsPage } from './pages/ProgramsPage';
 import { AboutPage } from './pages/AboutPage';
 import { GalleryPage } from './pages/GalleryPage';
-import { useScrollReveal } from './hooks/useScrollReveal';
+import { AdmissionsPage } from './pages/AdmissionsPage';
+import { ContactPage } from './pages/ContactPage';
 
 function App() {
-  const pathname = window.location.pathname;
-  const isProgramsPage = pathname.startsWith('/programs');
-  const isAboutPage = pathname.startsWith('/about');
-  const isGalleryPage = pathname.startsWith('/gallery');
-
-  useScrollReveal(pathname);
-
   return (
-    <>
-      <Navbar
-        activePath={
-          isAboutPage ? '/about' : isProgramsPage ? '/programs' : isGalleryPage ? '/gallery' : '/'
-        }
-      />
-      <main key={pathname} className="page-enter pt-[80px]">
-        {isAboutPage ? (
-          <AboutPage />
-        ) : isProgramsPage ? (
-          <ProgramsPage />
-        ) : isGalleryPage ? (
-          <GalleryPage />
-        ) : (
-          <>
-            <Hero />
-            <Programs />
-            <VisionMission />
-          </>
-        )}
-      </main>
-      <Footer />
-    </>
+    <Routes>
+      <Route element={<SiteLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="about/*" element={<AboutPage />} />
+        <Route path="programs/*" element={<ProgramsPage />} />
+        <Route path="gallery/*" element={<GalleryPage />} />
+        <Route path="admissions/*" element={<AdmissionsPage />} />
+        <Route path="contact/*" element={<ContactPage />} />
+        <Route path="enroll" element={<Navigate to="/admissions#enroll" replace />} />
+        {/* Unknown paths still open the home page, matching the previous behaviour. */}
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 }
 

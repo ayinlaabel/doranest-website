@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import logoImage from '../assets/images/logo.png';
 
 interface NavItem {
   label: string;
@@ -13,7 +15,6 @@ interface NavbarProps {
     href: string;
     variant?: 'primary' | 'secondary';
   };
-  activePath?: string;
 }
 
 export function Navbar({
@@ -25,14 +26,19 @@ export function Navbar({
     { label: 'Gallery', href: '/gallery' },
     { label: 'Admissions', href: '/admissions' },
   ],
-  cta = { label: 'Enroll Now', href: '/enroll', variant: 'secondary' },
-  activePath = '/',
+  cta = { label: 'Enroll Now', href: '/admissions#enroll', variant: 'secondary' },
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) => {
-    if (href === '/') return activePath === '/';
-    return activePath.startsWith(href);
+    const path = href.split('#')[0];
+    if (path === '/') return pathname === '/';
+    return pathname === path || pathname.startsWith(`${path}/`);
   };
 
   return (
@@ -40,35 +46,39 @@ export function Navbar({
       <div className="mx-auto flex h-[80px] max-w-[1284px] items-center justify-between gap-8 px-6 md:px-10 lg:px-[66px]">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <a href="/" className="flex items-center" aria-label="Dora's Nest — Home">
+          <Link to="/" className="flex items-center" aria-label="Dora's Nest — Home">
             {logo || (
-              <span className="inline-block font-brand text-[22.5px] font-semibold leading-none text-brand transition-transform duration-300 hover:scale-[1.02]">
-                Dora&apos;s Nest
-              </span>
+              <img
+                src={logoImage}
+                alt="Dora's Nest Crèche"
+                width={768}
+                height={456}
+                className="h-[52px] w-auto mix-blend-multiply sm:h-[58px]"
+              />
             )}
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-[24.5px] lg:flex">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
-              href={item.href}
+              to={item.href}
               className={`nav-underline relative font-brand text-[13.5px] font-medium leading-[24px] transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-[2px] after:rounded-full after:bg-brand after:content-[''] ${
                 isActive(item.href) ? 'text-brand' : 'text-ink hover:text-brand'
               }`}
               aria-current={isActive(item.href) ? 'page' : undefined}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* Desktop CTA */}
         <div className="hidden items-center lg:flex">
-          <a
-            href={cta.href}
+          <Link
+            to={cta.href}
             className={`inline-flex h-[44px] items-center justify-center rounded-full px-[25px] font-brand text-[13px] font-semibold leading-none transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
               cta.variant === 'primary'
                 ? 'bg-brand text-header hover:bg-brand/90'
@@ -76,7 +86,7 @@ export function Navbar({
             }`}
           >
             {cta.label}
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -104,9 +114,9 @@ export function Navbar({
         <div id="mobile-menu" className="animate-slide-down border-t border-border bg-header lg:hidden">
           <div className="mx-auto flex max-w-[1284px] flex-col gap-1 px-6 py-4 md:px-10">
             {navItems.map((item, index) => (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={`animate-fade-up rounded-lg px-3 py-3 font-brand text-[14px] font-medium ${
                   isActive(item.href)
                     ? 'text-brand'
@@ -117,10 +127,10 @@ export function Navbar({
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href={cta.href}
+            <Link
+              to={cta.href}
               className={`mt-2 inline-flex h-[44px] items-center justify-center rounded-full px-[25px] font-brand text-[13px] font-semibold ${
                 cta.variant === 'primary'
                   ? 'bg-brand text-header'
@@ -129,7 +139,7 @@ export function Navbar({
               onClick={() => setMobileMenuOpen(false)}
             >
               {cta.label}
-            </a>
+            </Link>
           </div>
         </div>
       )}

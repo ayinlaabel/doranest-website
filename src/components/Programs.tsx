@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import crecheImage from '../assets/images/program-creche.png';
 import afterSchoolImage from '../assets/images/program-afterschool.png';
 
@@ -149,13 +150,13 @@ export function Programs() {
                 className="mt-[24px] aspect-[484/192] w-full max-w-full rounded-[10px] object-cover sm:mt-[33px]"
               />
 
-              <a
-                href={program.href}
+              <Link
+                to={program.href}
                 className="mt-[23px] inline-flex items-center gap-[8px] self-start font-brand text-[13.4px] font-semibold leading-[20px] text-brand transition-colors hover:text-[#523F6E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
               >
                 {program.linkLabel}
                 <ArrowIcon className="h-[14px] w-[14px] transition-transform duration-200 group-hover:translate-x-[2px]" />
-              </a>
+              </Link>
             </article>
           ))}
         </div>

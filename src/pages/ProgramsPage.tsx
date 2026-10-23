@@ -3,14 +3,56 @@ import crecheImage from '../assets/images/program-creche.png';
 import afterSchoolImage from '../assets/images/program-afterschool.png';
 import { PickupSection } from '../components/PickupSection';
 
-function LeafIcon({ className }: { className?: string }) {
+function CheckCircleIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" fill="currentColor" />
       <path
-        d="M20.2 3.8c.4 8.3-5.1 15.2-13.6 15.2H4.9l.7-2.4c1.9-.2 5-1.2 7.2-3.4-1.6.7-3.2 1.1-5.3 1.3 2-3.6 5.4-6.5 12.7-10.7Z"
-        fill="currentColor"
+        d="m8.2 12.2 2.4 2.4 5.2-5.4"
+        fill="none"
+        stroke="#FFFFFF"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path d="M5.6 20.3c.6-3.1 1.9-6.2 3.9-8.8" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CribIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M4.2 6.4v11.2M19.8 6.4v11.2M3 10.4h18M3 15.6h18" />
+      <path d="M6.7 10.4v5.2M9.4 10.4v5.2M12.1 10.4v5.2M14.8 10.4v5.2M17.5 10.4v5.2" />
+      <path d="M8.4 6.4c0-1.1.9-2 2-2h3.2c1.1 0 2 .9 2 2" />
+    </svg>
+  );
+}
+
+function PencilBookIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M11.2 5.4H5.4A1.8 1.8 0 0 0 3.6 7.2v11.4h14.2V12" />
+      <path d="M11.2 5.4v13.2M3.6 18.6c2.6-1.3 5.1-1.3 7.6 0 2.5-1.3 5-1.3 7.6 0" />
+      <path d="m14.6 8.9 4.4-4.4a1.4 1.4 0 0 1 2 2l-4.4 4.4-2.8.8.8-2.8Z" />
     </svg>
   );
 }
@@ -112,9 +154,12 @@ function BusIcon({ className }: { className?: string }) {
 interface CareProgram {
   ages: string;
   title: string;
+  tagline: string;
   description: string;
   image: string;
   imageAlt: string;
+  headerIcon: ReactNode;
+  headerIconClassName: string;
   features: { label: string; icon: ReactNode }[];
 }
 
@@ -122,12 +167,18 @@ const carePrograms: CareProgram[] = [
   {
     ages: '6mo - 2yr',
     title: 'Crèche',
+    tagline: 'Infant Care Sanctuary',
     description:
       'A nurturing, safe haven designed to stimulate early cognitive development while ensuring absolute comfort and hygiene.',
     image: crecheImage,
     imageAlt: "A caregiver holding a smiling baby in Dora's Nest crèche",
+    headerIcon: <CribIcon className="h-[25px] w-[25px]" />,
+    headerIconClassName: 'border-[#EFE6D2] bg-[#FBF7EC] text-[#9A7620]',
     features: [
-      { label: 'Nurturing Environment tailored for infants', icon: <LeafIcon className="h-[17px] w-[17px]" /> },
+      {
+        label: 'Nurturing Environment tailored for infants',
+        icon: <CheckCircleIcon className="h-[17px] w-[17px]" />,
+      },
       { label: 'Nutritious, age-appropriate meals', icon: <UtensilsIcon className="h-[17px] w-[17px]" /> },
       { label: 'Rigorous safety and hygiene protocols', icon: <ShieldCheckIcon className="h-[17px] w-[17px]" /> },
     ],
@@ -135,10 +186,13 @@ const carePrograms: CareProgram[] = [
   {
     ages: '2 - 12yr',
     title: 'After-School Care',
+    tagline: 'Ages 2 – 12 Years',
     description:
       'Structured support bridging the gap between school and home, focusing on academic reinforcement and relaxed socialization.',
     image: afterSchoolImage,
     imageAlt: 'Children painting and making crafts in a Dora\u2019s Nest after-school classroom',
+    headerIcon: <PencilBookIcon className="h-[25px] w-[25px]" />,
+    headerIconClassName: 'border-[#F2E4BF] bg-[#FCF6E4] text-[#9A7620]',
     features: [
       { label: 'Dedicated homework supervision', icon: <BookIcon className="h-[17px] w-[17px]" /> },
       { label: 'Healthy afternoon snacks', icon: <CupIcon className="h-[17px] w-[17px]" /> },
@@ -187,11 +241,23 @@ export function ProgramsPage() {
                   </span>
                 </div>
 
-                <div className="flex flex-1 flex-col px-[24px] pb-[32px] pt-[28px] sm:px-[32px] sm:pt-[34px] sm:pb-[50px]">
-                  <h2 className="font-brand text-[26px] font-bold leading-[34px] text-brand sm:text-[28px]">
-                    {program.title}
-                  </h2>
-                  <p className="mt-[14px] font-brand text-[15px] leading-[26px] text-ink sm:text-[16px]">
+                <div className="flex flex-1 flex-col px-[24px] pb-[32px] pt-[28px] sm:px-[32px] sm:pt-[30px] sm:pb-[50px]">
+                  <div className="flex items-start gap-[16px]">
+                    <span
+                      className={`flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[13px] border ${program.headerIconClassName}`}
+                    >
+                      {program.headerIcon}
+                    </span>
+                    <div className="min-w-0">
+                      <h2 className="font-brand text-[26px] font-bold leading-[1.15] text-brand sm:text-[28px]">
+                        {program.title}
+                      </h2>
+                      <p className="mt-[7px] font-brand text-[10.5px] font-bold uppercase leading-[15px] tracking-[0.11em] text-[#8A6B00]">
+                        {program.tagline}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-[20px] font-brand text-[15px] leading-[26px] text-ink sm:text-[16px]">
                     {program.description}
                   </p>
 

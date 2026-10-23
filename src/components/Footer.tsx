@@ -1,10 +1,12 @@
 import type { CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
+import logoImage from '../assets/images/logo.png';
 
 const footerColumns = [
   [
     { label: 'Location & Hours', href: '/contact#hours' },
     { label: 'Contact Us', href: '/contact' },
-    { label: 'WhatsApp Support', href: 'https://wa.me/' },
+    { label: 'WhatsApp Support', href: 'https://wa.me/2348023456789' },
   ],
   [
     { label: 'Staff Portal', href: '/staff-portal' },
@@ -18,13 +20,19 @@ export function Footer() {
       <div className="mx-auto max-w-[1284px] px-6 md:px-10 lg:px-[66px]">
         <div className="grid grid-cols-2 gap-x-[32px] gap-y-[40px] pt-[48px] lg:grid-cols-[293px_294px_1fr] lg:gap-x-0 lg:pt-[50px]">
           <div data-reveal="up" className="col-span-2 pt-[2px] lg:col-span-1">
-            <a
-              href="/"
-              className="inline-block font-brand text-[22.5px] font-semibold leading-none text-brand"
+            <Link
+              to="/"
+              className="inline-block"
               aria-label="Dora's Nest — Home"
             >
-              Dora&apos;s Nest
-            </a>
+              <img
+                src={logoImage}
+                alt="Dora's Nest Crèche"
+                width={768}
+                height={456}
+                className="h-[68px] w-auto mix-blend-multiply"
+              />
+            </Link>
             <p className="mt-[18px] max-w-[250px] font-brand text-[14.7px] leading-[24px] text-ink">
               Providing a nurturing, safe, and premium environment for Lagos&apos; brightest little
               minds.
@@ -39,15 +47,25 @@ export function Footer() {
               className="flex flex-col gap-[16px] font-brand text-[15px] font-medium leading-[20px] text-ink"
               aria-label={index === 0 ? 'Location and contact' : 'Company'}
             >
-              {column.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="inline-block transition-all duration-300 hover:translate-x-1 hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {column.map((item) =>
+                item.href.startsWith('http') ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="inline-block transition-all duration-300 hover:translate-x-1 hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="inline-block transition-all duration-300 hover:translate-x-1 hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </nav>
           ))}
         </div>

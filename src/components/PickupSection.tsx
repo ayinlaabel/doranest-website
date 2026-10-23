@@ -34,6 +34,29 @@ function ShieldCheckIcon({ className }: { className?: string }) {
   );
 }
 
+function PickupBusIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M3.6 6.6A1.8 1.8 0 0 1 5.4 4.8h11.8a1.8 1.8 0 0 1 1.8 1.8v8.2H3.6V6.6Z" />
+      <path d="M3.6 10.4h14.4" />
+      <path d="M7.4 4.8v5.6M11.6 4.8v5.6" />
+      <circle cx="7.3" cy="17.1" r="1.5" className="fill-white" />
+      <circle cx="14" cy="17.1" r="1.5" className="fill-white" />
+      <circle cx="19" cy="6.4" r="3.4" className="fill-[#FCF6E4]" />
+      <path d="m17.5 6.4 1 1 2-2.1" />
+    </svg>
+  );
+}
+
 function PinIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -323,12 +346,19 @@ export function PickupSection() {
       <div className="mx-auto max-w-[1200px] px-6 pt-[56px] pb-[48px] md:px-10 lg:px-0 lg:pt-[76px] lg:pb-[68px]">
         <div className="grid items-start gap-[48px] lg:grid-cols-[480px_minmax(0,1fr)] lg:gap-[34px]">
           <div className="min-w-0">
-            <h2
-              data-reveal="up"
-              className="font-brand text-[23px] font-bold leading-[32px] text-brand sm:text-[24px]"
-            >
-              Reliable School Pickup
-            </h2>
+            <div data-reveal="up" className="flex items-start gap-[16px]">
+              <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[13px] border border-[#EFE6D2] bg-[#FBF7EC] text-[#9A7620]">
+                <PickupBusIcon className="h-[26px] w-[26px]" />
+              </span>
+              <div className="min-w-0">
+                <h2 className="font-brand text-[23px] font-bold leading-[1.15] text-brand sm:text-[24px]">
+                  Reliable School Pickup
+                </h2>
+                <p className="mt-[7px] font-brand text-[10.5px] font-bold uppercase leading-[15px] tracking-[0.11em] text-[#8A6B00]">
+                  Dedicated Logistics &amp; Chaperone
+                </p>
+              </div>
+            </div>
             <p
               data-reveal="up"
               className="mt-[20px] max-w-[455px] font-brand text-[16px] leading-[28px] text-ink [--reveal-delay:90ms] sm:text-[18px] sm:leading-[30px]"

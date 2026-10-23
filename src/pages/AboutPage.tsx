@@ -1,7 +1,8 @@
-import type { CSSProperties, ReactNode } from 'react';
-import aboutHeroImage from '../assets/images/about-hero.png';
-import founderPortrait from '../assets/images/founder-portrait.png';
-import { OurPurpose } from '../components/VisionMission';
+import type { CSSProperties, ReactNode } from "react";
+import aboutHeroImage from "../assets/images/about-hero.png";
+import founderPortrait from "../assets/images/founder-portrait.png";
+import { OurPurpose } from "../components/VisionMission";
+import { Testimonials } from "../components/Testimonials";
 
 function BadgeCheckIcon({ className }: { className?: string }) {
   return (
@@ -116,25 +117,31 @@ function QuoteMark({ className }: { className?: string }) {
 }
 
 const heroHighlights: { label: string; icon: ReactNode }[] = [
-  { label: 'Licensed Facility', icon: <BadgeCheckIcon className="h-[15px] w-[15px]" /> },
-  { label: 'Play-Based', icon: <HeartIcon className="h-[15px] w-[15px]" /> },
-  { label: '24/7 Security', icon: <ShieldLockIcon className="h-[15px] w-[15px]" /> },
+  {
+    label: "Licensed Facility",
+    icon: <BadgeCheckIcon className="h-[15px] w-[15px]" />,
+  },
+  { label: "Play-Based", icon: <HeartIcon className="h-[15px] w-[15px]" /> },
+  {
+    label: "24/7 Security",
+    icon: <ShieldLockIcon className="h-[15px] w-[15px]" />,
+  },
 ];
 
 const philosophyPoints = [
   {
-    title: 'Safety First',
+    title: "Safety First",
     description:
-      'From rigorous staff background checks to child-proofed architecture and comprehensive hygiene protocols, peace of mind is our promise.',
+      "From rigorous staff background checks to child-proofed architecture and comprehensive hygiene protocols, peace of mind is our promise.",
     icon: <ShieldFilledIcon className="h-[19px] w-[19px]" />,
-    iconClassName: 'bg-[#F0EDF3] text-brand',
+    iconClassName: "bg-[#F0EDF3] text-brand",
   },
   {
-    title: 'Emotional Development',
+    title: "Emotional Development",
     description:
-      'We focus heavily on EQ, teaching children how to identify their feelings, develop empathy, and build resilient interpersonal skills.',
+      "We focus heavily on EQ, teaching children how to identify their feelings, develop empathy, and build resilient interpersonal skills.",
     icon: <SmileFilledIcon className="h-[19px] w-[19px]" />,
-    iconClassName: 'bg-[#EEEFEF] text-ink',
+    iconClassName: "bg-[#EEEFEF] text-ink",
   },
 ];
 
@@ -166,9 +173,18 @@ export function AboutPage() {
                 data-reveal="up"
                 className="mt-[22px] max-w-[575px] font-brand text-[16px] leading-[28px] text-ink [--reveal-delay:180ms] sm:text-[17px] sm:leading-[29px]"
               >
-                At Dora&apos;s Nest, we believe every child is a universe of potential. Born from a
-                deep-seated passion for early childhood development, our facility is designed to be
-                a home away from home, where safety meets joyous discovery.
+                Working in a fast paced city like Lagos comes with wide range of
+                challenges, demands and risk that has to be balanced with the
+                demands of providing care for children.
+              </p>
+              <p
+                data-reveal="up"
+                className="mt-[22px] max-w-[575px] font-brand text-[16px] leading-[28px] text-ink [--reveal-delay:180ms] sm:text-[17px] sm:leading-[29px]"
+              >
+                Our services aim at taking up the responsibility of caring for
+                children within the hours of 6:30am to 6:00pm, thus putting the
+                minds of parents at rest and enabling them to be more productive
+                at what they do.
               </p>
 
               <ul
@@ -187,7 +203,10 @@ export function AboutPage() {
               </ul>
             </div>
 
-            <div data-reveal="right" className="relative min-w-0 [--reveal-delay:140ms]">
+            <div
+              data-reveal="right"
+              className="relative min-w-0 [--reveal-delay:140ms]"
+            >
               <img
                 src={aboutHeroImage}
                 width={577}
@@ -214,8 +233,8 @@ export function AboutPage() {
               data-reveal="up"
               className="mx-auto mt-[14px] max-w-[760px] text-center font-brand text-[15px] leading-[25px] text-ink [--reveal-delay:90ms] sm:text-[16px] sm:leading-[26px]"
             >
-              We blend structured learning with organic play, ensuring every day is an adventure in
-              growth.
+              We blend structured learning with organic play, ensuring every day
+              is an adventure in growth.
             </p>
 
             <div className="mt-[44px] grid gap-[20px] lg:mt-[70px] lg:grid-cols-[minmax(0,1fr)_390px] lg:gap-[22px]">
@@ -231,9 +250,10 @@ export function AboutPage() {
                   Play-Based Learning
                 </h3>
                 <p className="mt-[13px] max-w-[455px] font-brand text-[15px] leading-[24px] text-ink">
-                  Children learn best when they are engaged and having fun. Our curriculum is deeply
-                  rooted in play, allowing toddlers to explore math, language, and science concepts
-                  naturally through sensory bins, block building, and imaginative role-play. We
+                  Children learn best when they are engaged and having fun. Our
+                  curriculum is deeply rooted in play, allowing toddlers to
+                  explore math, language, and science concepts naturally through
+                  sensory bins, block building, and imaginative role-play. We
                   create environments that provoke curiosity.
                 </p>
 
@@ -245,7 +265,11 @@ export function AboutPage() {
                   <article
                     key={point.title}
                     data-reveal="up"
-                    style={{ '--reveal-delay': `${120 + index * 120}ms` } as CSSProperties}
+                    style={
+                      {
+                        "--reveal-delay": `${120 + index * 120}ms`,
+                      } as CSSProperties
+                    }
                     className="card-lift flex-1 rounded-[16px] bg-white p-[24px] shadow-[0_20px_45px_-42px_rgba(63,72,75,0.45)] hover:shadow-[0_30px_55px_-40px_rgba(63,72,75,0.4)]"
                   >
                     <span
@@ -271,7 +295,10 @@ export function AboutPage() {
 
       {/* Founder */}
       <section className="relative overflow-hidden bg-[#FBF9F4]">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+        >
           <div className="animate-float absolute left-[32%] top-[30px] h-[430px] w-[430px] rounded-full bg-[#F1F3EF]" />
           <div className="animate-float absolute right-[12%] top-[36px] h-[200px] w-[200px] rotate-45 rounded-[26px] bg-[#F1F3EF] [animation-delay:1.6s]" />
           <div className="animate-float absolute bottom-[-190px] left-[24%] h-[430px] w-[430px] rounded-full bg-[#F1F3EF] [animation-delay:3.2s]" />
@@ -306,16 +333,19 @@ export function AboutPage() {
                     <QuoteMark className="pointer-events-none absolute -left-[8px] -top-[30px] h-[88px] w-[88px] text-[#F0EDF1]" />
                     <blockquote className="relative font-brand text-[16px] leading-[28px] text-ink sm:text-[17px]">
                       <p>
-                        &ldquo;When I set out to create Dora&apos;s Nest, my vision was simple yet
-                        profound: to build the kind of space I searched for as a working mother in
-                        Lagos but couldn&apos;t find. A place that doesn&apos;t just watch your
-                        children, but truly sees them.
+                        &ldquo;When I set out to create Dora&apos;s Nest, my
+                        vision was simple yet profound: to build the kind of
+                        space I searched for as a working mother in Lagos but
+                        couldn&apos;t find. A place that doesn&apos;t just watch
+                        your children, but truly sees them.
                       </p>
                       <p className="mt-[22px]">
-                        We are committed to providing an environment where excellence in early
-                        education meets the warmth of a loving home. Every color on our walls, every
-                        toy on our shelves, and every educator on our team is carefully chosen to
-                        foster your child&apos;s unique journey.&rdquo;
+                        We are committed to providing an environment where
+                        excellence in early education meets the warmth of a
+                        loving home. Every color on our walls, every toy on our
+                        shelves, and every educator on our team is carefully
+                        chosen to foster your child&apos;s unique
+                        journey.&rdquo;
                       </p>
                     </blockquote>
                   </div>
@@ -329,6 +359,8 @@ export function AboutPage() {
           </div>
         </div>
       </section>
+
+      <Testimonials />
     </div>
   );
 }

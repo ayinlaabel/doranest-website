@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import heroClassroom from '../assets/images/hero-classroom.png';
 
 function StarIcon({ className }: { className?: string }) {
@@ -65,8 +66,8 @@ function SmileIcon({ className }: { className?: string }) {
 }
 
 const openingHours = [
-  { label: 'Mon - Fri', value: '7:00 AM - 6:00 PM', icon: <ClockIcon className="h-[21px] w-[21px]" /> },
-  { label: 'Location', value: 'Victoria Island, Lagos', icon: <PinIcon className="h-[21px] w-[21px]" /> },
+  { label: 'Mon - Fri', value: '6:30 AM - 6:00 PM', icon: <ClockIcon className="h-[21px] w-[21px]" /> },
+  { label: 'Location', value: 'Yaba, Lagos', icon: <PinIcon className="h-[21px] w-[21px]" /> },
 ];
 
 export function Hero() {
@@ -109,18 +110,18 @@ export function Hero() {
               data-reveal="up"
               className="mt-[40px] flex flex-wrap items-center gap-[18px] [--reveal-delay:260ms]"
             >
-              <a
-                href="/enroll"
+              <Link
+                to="/admissions#enroll"
                 className="inline-flex h-[52px] items-center justify-center rounded-full bg-cta px-[32px] font-brand text-[13px] font-semibold text-cta-ink shadow-[0_10px_24px_-14px_rgba(252,203,73,0.9)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F8C43C] hover:shadow-[0_16px_28px_-16px_rgba(252,203,73,0.95)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Enroll Now
-              </a>
-              <a
-                href="/tour"
+              </Link>
+              <Link
+                to="/tour"
                 className="inline-flex h-[52px] items-center justify-center rounded-full border border-brand px-[34px] font-brand text-[13px] font-semibold text-brand transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 Book a Tour
-              </a>
+              </Link>
             </div>
 
             <hr data-reveal="fade" className="mt-[61px] border-t border-[#E4E2DD] [--reveal-delay:340ms]" />
